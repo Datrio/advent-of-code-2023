@@ -1,5 +1,6 @@
 const fs = require('fs')
-const lines = fs.readFileSync('input.txt', { encoding: 'utf8' }).split('\n')
+const path = require('path')
+const lines = fs.readFileSync(path.join(__dirname, 'input.txt'), { encoding: 'utf8' }).split('\n')
 
 const result = lines.reduce((sum, line) => {
     const [, data] = line.split(':')
