@@ -8,22 +8,16 @@ const cardCount = Array(lines.length).fill(1)
 
 const numberOfCards = lines.reduce((allCardCount, game, i) => {
     const [, gameData] = game.split(': ')
-    const [winningNumbersArray, gameNumbersArray] = gameData.trim().split(' | ').map(s => s.replaceAll('  ', ' ').split(' ').sort())
+    const [winningNumbersArray, gameNumbersArray] = gameData.trim().split(' | ').map(s => s.split(/\s+/).sort())
 
     // reverse the array to an object which we can lookup the results from
-    const gameNumbers = gameNumbersArray.reduce((ac,a) => ({...ac,[a]:1}),{});
+    const gameNumbers = gameNumbersArray.reduce((acc, num) => (acc[num] = 1, acc), {});
 
-    const score = winningNumbersArray.reduce((sum, number) => {
-        if (gameNumbers[number]) {
-            return !sum ? 1 : sum + 1
-        } else {
-            return sum
-        }
-    }, 0)
+    const score = winningNumbersArray.reduce((sum, number) => gameNumbers[number] ? sum + 1 : sum, 0)
 
     // increase the number of next cards
     for (let k = 1; k <= score; k++) {
-        cardCount[i + k] = cardCount[i + k] + (1 * cardCount[i])
+        cardCount[i + k] += cardCount[i]
     }
 
     return allCardCount + cardCount[i]

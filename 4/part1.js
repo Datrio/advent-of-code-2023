@@ -5,10 +5,10 @@ const lines = fs.readFileSync(path.join(__dirname, 'input.txt'), { encoding: 'ut
 
 const result = lines.reduce((totalScore, game) => {
     const [, gameData] = game.split(': ')
-    const [winningNumbersArray, gameNumbersArray] = gameData.trim().split(' | ').map(s => s.replaceAll('  ', ' ').split(' ').sort())
+    const [winningNumbersArray, gameNumbersArray] = gameData.trim().split(' | ').map(s => s.split(/\s+/).sort())
 
     // reverse the array to an object which we can lookup the results from
-    const gameNumbers = gameNumbersArray.reduce((ac,a) => ({...ac,[a]:1}),{});
+    const gameNumbers = gameNumbersArray.reduce((acc, num) => (acc[num] = 1, acc), {});
 
     const score = winningNumbersArray.reduce((sum, number) => {
         if (gameNumbers[number]) {
