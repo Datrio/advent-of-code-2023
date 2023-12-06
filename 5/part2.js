@@ -57,9 +57,9 @@ function getOverlapOfRanges(r1, r2) {
   return overlapStart < overlapEnd ? [overlapStart, overlapEnd - overlapStart, overlapEnd] : false
 }
 
-function removeRange(range1, range2) {
-  let [start1, , end1] = range1
-  let [start2, , end2] = range2
+function removeRange(r1, r2) {
+  let [start1, , end1] = r1
+  let [start2, , end2] = r2
   
   let result = []
   if (start2 > start1) result.push([start1, start2 - start1, start2])
