@@ -7,20 +7,20 @@ const lines = fs.readFileSync(path.join(__dirname, 'input.txt'), { encoding: 'ut
 const cardCount = Array(lines.length).fill(1)
 
 const numberOfCards = lines.reduce((allCardCount, game, i) => {
-    const [, gameData] = game.split(': ')
-    const [winningNumbersArray, gameNumbersArray] = gameData.trim().split(' | ').map(s => s.split(/\s+/).sort())
-
-    // reverse the array to an object which we can lookup the results from
-    const gameNumbers = gameNumbersArray.reduce((acc, num) => (acc[num] = 1, acc), {});
-
-    const score = winningNumbersArray.reduce((sum, number) => gameNumbers[number] ? sum + 1 : sum, 0)
-
-    // increase the number of next cards
-    for (let k = 1; k <= score; k++) {
-        cardCount[i + k] += cardCount[i]
-    }
-
-    return allCardCount + cardCount[i]
+  const [, gameData] = game.split(': ')
+  const [winningNumbersArray, gameNumbersArray] = gameData.trim().split(' | ').map(s => s.split(/\s+/).sort())
+  
+  // reverse the array to an object which we can lookup the results from
+  const gameNumbers = gameNumbersArray.reduce((acc, num) => (acc[num] = 1, acc), {});
+  
+  const score = winningNumbersArray.reduce((sum, number) => gameNumbers[number] ? sum + 1 : sum, 0)
+  
+  // increase the number of next cards
+  for (let k = 1; k <= score; k++) {
+    cardCount[i + k] += cardCount[i]
+  }
+  
+  return allCardCount + cardCount[i]
 }, 0)
 
 console.log(numberOfCards)
