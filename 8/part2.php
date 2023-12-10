@@ -10,29 +10,29 @@ $paths = [];
 $startingPaths = [];
 
 foreach ($pathsRaw as $line) {
-    [$path, $val] = explode(' = ', $line);
-    $paths[$path] = [substr($val, 1, 3), substr($val, 6, 3)];
-
-    if ($path[2] === 'A') {
-        $startingPaths[] = $path;
-    }
+  [$path, $val] = explode(' = ', $line);
+  $paths[$path] = [substr($val, 1, 3), substr($val, 6, 3)];
+  
+  if ($path[2] === 'A') {
+    $startingPaths[] = $path;
+  }
 }
 
 $listOfI = array_map(function($path) use ($paths, $dirs) {
   $currentKey = $path;
   $i = 0;
-
+  
   while ($currentKey[2] !== 'Z') {
-      $currentKey = $dirs[$i % strlen($dirs)] === 'R' ? $paths[$currentKey][1] : $paths[$currentKey][0];
-      $i++;
+    $currentKey = $dirs[$i % strlen($dirs)] === 'R' ? $paths[$currentKey][1] : $paths[$currentKey][0];
+    $i++;
   }
-
+  
   return $i;
 }, $startingPaths);
 
 function calculateLCM($arr) {
   return array_reduce($arr, function($lcm, $current) {
-      return gmp_strval(gmp_lcm($lcm, $current));
+    return gmp_strval(gmp_lcm($lcm, $current));
   }, 1);
 }
 

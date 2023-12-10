@@ -9,29 +9,29 @@ $distances = array_map('intval', preg_split('/\s+/', trim(substr($lines[1], 9)))
 
 $data = [];
 foreach ($times as $i => $time) {
-    $data[] = [
-        'time' => $time,
-        'distance' => $distances[$i]
-    ];
+  $data[] = [
+    'time' => $time,
+    'distance' => $distances[$i]
+  ];
 }
 
 $finalResult = 1;
 foreach ($data as $datum) {
-    $distance = $datum['distance'];
-    $time = $datum['time'];
-
-    $successCount = 0;
-    for ($timeHeld = 1; $timeHeld <= $time; $timeHeld++) {
-        $travelTime = $time - $timeHeld;
-        $travelSpeed = $timeHeld;
-        $distanceTraveled = $travelSpeed * $travelTime;
-
-        if ($distanceTraveled >= $distance) {
-            $successCount++;
-        }
+  $distance = $datum['distance'];
+  $time = $datum['time'];
+  
+  $successCount = 0;
+  for ($timeHeld = 1; $timeHeld <= $time; $timeHeld++) {
+    $travelTime = $time - $timeHeld;
+    $travelSpeed = $timeHeld;
+    $distanceTraveled = $travelSpeed * $travelTime;
+    
+    if ($distanceTraveled >= $distance) {
+      $successCount++;
     }
-
-    $finalResult *= $successCount;
+  }
+  
+  $finalResult *= $successCount;
 }
 
 echo $finalResult;
