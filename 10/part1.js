@@ -47,30 +47,30 @@ const checkLocations = (y, x, changeY = null, changeX = null, stepCount = 0) => 
 
 /* different approach 
 const checkLocations = (startY, startX) => {
-  let stack = [[startY, startX, null, null, 0]];
+  let stack = [[startY, startX, null, null, 0]]
 
   while (stack.length > 0) {
-    const [y, x, changeY, changeX, stepCount] = stack.pop();
-    const currentPipe = lines[y][x];
+    const [y, x, changeY, changeX, stepCount] = stack.pop()
+    const currentPipe = lines[y][x]
 
     for (const [dy, dx] of possiblePaths[currentPipe]) {
       if (-dy === changeY && -dx === changeX) {
-        continue;
+        continue
       }
 
-      const nextY = y + dy, nextX = x + dx;
-      const nextPipe = lines[nextY]?.[nextX];
+      const nextY = y + dy, nextX = x + dx
+      const nextPipe = lines[nextY]?.[nextX]
 
       if (nextPipe === 'S') {
-        return stepCount;
+        return stepCount
       }
 
       if (pipeEntries[`${dy},${dx}`].includes(nextPipe)) {
-        stack.push([nextY, nextX, dy, dx, stepCount + 1]);
+        stack.push([nextY, nextX, dy, dx, stepCount + 1])
       }
     }
   }
-};
+}
 */
 
 let stepCount = checkLocations(locationY, locationX)
